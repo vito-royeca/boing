@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=3 uid="uid://c7hn6ar6wqitf"]
+
+[ext_resource type="Texture2D" uid="uid://pvedu7h6p68r" path="res://art/impact0.png" id="1_7kuxu"]
+[ext_resource type="Script" uid="uid://bm23qkotgsbqy" path="res://impact.gd" id="1_u61rl"]
+[ext_resource type="Texture2D" uid="uid://bm40v8ns7llmn" path="res://art/impact1.png" id="2_u61rl"]
+[ext_resource type="Texture2D" uid="uid://s7u5d8ijxap1" path="res://art/impact2.png" id="3_dqxkb"]
+[ext_resource type="Texture2D" uid="uid://b83uytyfqagws" path="res://art/impact3.png" id="4_jvv3u"]
+[ext_resource type="Texture2D" uid="uid://bl4oo1sleawqj" path="res://art/impact4.png" id="5_f0s20"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u61rl"]
+animations = [{
+"frames": [{
+"duration": 0.2,
+"texture": ExtResource("1_7kuxu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_u61rl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_dqxkb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_jvv3u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_f0s20")
+}],
+"loop": true,
+"name": &"animate",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dqxkb"]
+
+[node name="Impact" type="Area2D"]
+script = ExtResource("1_u61rl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_u61rl")
+animation = &"animate"
+frame_progress = 0.29824
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dqxkb")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

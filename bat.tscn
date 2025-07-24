@@ -1,0 +1,89 @@
+[gd_scene load_steps=10 format=3 uid="uid://bcth6vqg4ngd7"]
+
+[ext_resource type="Script" uid="uid://cxgu8sal6lmv4" path="res://bat.gd" id="1_1tubu"]
+[ext_resource type="Texture2D" uid="uid://dxqv7l4w6wvul" path="res://art/bat01.png" id="1_jp0fn"]
+[ext_resource type="Texture2D" uid="uid://b1a2182367uxa" path="res://art/bat02.png" id="2_ulak1"]
+[ext_resource type="Texture2D" uid="uid://im3ivte5p2mt" path="res://art/bat00.png" id="3_0pjmi"]
+[ext_resource type="Texture2D" uid="uid://bqjair1ipphxg" path="res://art/bat11.png" id="4_5s65s"]
+[ext_resource type="Texture2D" uid="uid://brl04h07udh62" path="res://art/bat12.png" id="5_1e43q"]
+[ext_resource type="Texture2D" uid="uid://idfdltqglsn5" path="res://art/bat10.png" id="6_c1ris"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jp0fn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_jp0fn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_0pjmi")
+}],
+"loop": true,
+"name": &"bat_0_hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ulak1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_0pjmi")
+}],
+"loop": true,
+"name": &"bat_0_miss",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_0pjmi")
+}],
+"loop": true,
+"name": &"bat_0_ready",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_5s65s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_c1ris")
+}],
+"loop": true,
+"name": &"bat_1_hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_1e43q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_c1ris")
+}],
+"loop": true,
+"name": &"bat_1_miss",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_c1ris")
+}],
+"loop": true,
+"name": &"bat_1_ready",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jp0fn"]
+height = 118.0
+
+[node name="Bat" type="Area2D"]
+script = ExtResource("1_1tubu")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_jp0fn")
+animation = &"bat_1_miss"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_jp0fn")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

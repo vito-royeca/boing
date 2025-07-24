@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://dfiv4nckvgxkk"]
+
+[ext_resource type="Script" uid="uid://brmkwpw6ncmk8" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://4i6qdn6r70m0" path="res://ball.tscn" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://bexg1ji6pf2o7" path="res://art/table.png" id="2_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://c7hn6ar6wqitf" path="res://impact.tscn" id="2_lquwl"]
+[ext_resource type="PackedScene" uid="uid://bcth6vqg4ngd7" path="res://bat.tscn" id="3_h2yge"]
+
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_1bvp3"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_0xm2m")
+impact_scene = ExtResource("2_lquwl")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_1bvp3")
+
+[node name="Ball" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(400, 240)
+
+[node name="Bat0" parent="." instance=ExtResource("3_h2yge")]
+position = Vector2(40, 240)
+
+[node name="Bat1" parent="." instance=ExtResource("3_h2yge")]
+position = Vector2(760, 240)
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamPolyphonic_1bvp3")
+
+[connection signal="ai_move" from="Ball" to="." method="ai_move"]
+[connection signal="miss" from="Ball" to="." method="ball_miss"]
+[connection signal="wall" from="Ball" to="." method="ball_wall"]
+[connection signal="hit" from="Bat0" to="." method="ball_hit"]
+[connection signal="hit" from="Bat1" to="." method="ball_hit"]
